@@ -53,6 +53,7 @@ public class ListaAlunosAdapter extends BaseAdapter {
     }
 
     private View criaView(ViewGroup parent) {
+        //noinspection UnnecessaryLocalVariable
         View viewCriada = LayoutInflater
                 .from(context)
                 .inflate(R.layout.item_aluno, parent, false);
