@@ -4,13 +4,10 @@ import static br.com.alura.agendaapp.database.AgendaMigrations.TODAS_MIGRATIONS;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
-import androidx.room.migration.Migration;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import br.com.alura.agendaapp.database.converter.ConversorCalendar;
 import br.com.alura.agendaapp.database.converter.ConversorTipoTelefone;
@@ -24,6 +21,7 @@ public abstract class AgendaDatabase extends RoomDatabase {
 
     private static final String NOME_BANCO_DE_DADOS = "agenda.db";
     public abstract AlunoDAO getRoomAlunoDAO();
+    public abstract TelefoneDAO getTelefoneDAO();
 
     public static AgendaDatabase getInstance(Context context) {
         return Room
@@ -32,4 +30,5 @@ public abstract class AgendaDatabase extends RoomDatabase {
                 .addMigrations(TODAS_MIGRATIONS)
                 .build();
     }
+
 }
