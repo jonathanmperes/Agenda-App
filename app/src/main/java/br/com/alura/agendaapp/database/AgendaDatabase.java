@@ -13,11 +13,13 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import br.com.alura.agendaapp.database.converter.ConversorCalendar;
+import br.com.alura.agendaapp.database.converter.ConversorTipoTelefone;
 import br.com.alura.agendaapp.database.dao.AlunoDAO;
 import br.com.alura.agendaapp.model.Aluno;
+import br.com.alura.agendaapp.model.Telefone;
 
-@Database(entities = {Aluno.class}, version = 4, exportSchema = false)
-@TypeConverters({ConversorCalendar.class})
+@Database(entities = {Aluno.class, Telefone.class}, version = 6, exportSchema = false)
+@TypeConverters({ConversorCalendar.class, ConversorTipoTelefone.class})
 public abstract class AgendaDatabase extends RoomDatabase {
 
     private static final String NOME_BANCO_DE_DADOS = "agenda.db";
