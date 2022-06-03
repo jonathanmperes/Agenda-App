@@ -1,7 +1,6 @@
 package br.com.alura.agendaapp.model;
 
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 @Entity
@@ -17,6 +16,12 @@ public class Telefone {
 //            onUpdate = ForeignKey.CASCADE,
 //            onDelete = ForeignKey.CASCADE)
     private int alunoId;
+
+    public Telefone(String numero, TipoTelefone tipo) {
+        this.numero = numero;
+        this.tipo = tipo;
+        this.alunoId = alunoId;
+    }
 
     public int getAlunoId() {
         return alunoId;
