@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.List;
 
 import br.com.alura.agendaapp.R;
+import br.com.alura.agendaapp.asynctask.SalvaAlunoTask;
 import br.com.alura.agendaapp.database.AgendaDatabase;
 import br.com.alura.agendaapp.database.TelefoneDAO;
 import br.com.alura.agendaapp.database.dao.AlunoDAO;
@@ -102,7 +103,6 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         } else {
             salvaAluno(telefoneFixo, telefoneCelular);
         }
-        finish();
     }
 
     @NonNull
@@ -112,14 +112,14 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     }
 
     private void salvaAluno(Telefone telefoneFixo, Telefone telefoneCelular) {
-        int alunoId = alunoDAO.salva(aluno).intValue();
-        vinculaAlinoComTelefone(alunoId, telefoneFixo, telefoneCelular);
-        telefoneDAO.salva(telefoneFixo, telefoneCelular);
+        new SalvaAlunoTask(alunoDAO, aluno, telefoneFixo,
+                telefoneCelular, telefoneDAO, this::finish)
+                .execute();
     }
 
     private void editaAluno(Telefone telefoneFixo, Telefone telefoneCelular) {
         alunoDAO.edita(aluno);
-        vinculaAlinoComTelefone(aluno.getId(), telefoneFixo, telefoneCelular);
+//        vinculaAlunoComTelefone(aluno.getId(), telefoneFixo, telefoneCelular);
         atualizaIdsDosTelefones(telefoneFixo, telefoneCelular);
         telefoneDAO.atualiza(telefoneFixo, telefoneCelular);
     }
@@ -135,12 +135,6 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         }
     }
 
-    private void vinculaAlinoComTelefone(int alunoId, Telefone... telefones) {
-        for (Telefone telefone :
-                telefones) {
-            telefone.setAlunoId(alunoId);
-        }
-    }
 
     private void inicializacaoDosCampos() {
         campoNome = findViewById(R.id.activity_formulario_aluno_nome);
